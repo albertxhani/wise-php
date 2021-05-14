@@ -1,0 +1,25 @@
+{
+    "name": "wise/wise-php",
+    "description": "Wise PHP Library",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": ">=6.3",
+        "ext-json": "^1.6",
+        "php": ">=5.6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Albert Xhani",
+            "email": "albert.xhani@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Wise\\": "src/"
+        }
+    }
+}
