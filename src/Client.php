@@ -109,12 +109,23 @@ class Client
         $content = $exception->getResponse()->getBody()->getContents();
         $response = json_decode($content);
 
-        if (($code === 400 || $code === 422 || $code === 404) && $content !== "") {
+        if (($code === 400 || $code === 404) && $content !== "") {
             throw new \Wise\Exception\BadException($response->errors[0]->message, $code);
         }
 
+        if ($code === 422) {
+            if ($content !== "") {
+                throw \Wise\Exception\ValidationException::instance(
+                    "Validation error",
+                    $response->errors,
+                    $code
+                );
+            } else {
+                throw new \Wise\Exception\ValidationException($response->message, $code);
+            }
+        }
+
         if ($code === 401 && $content !== "") {
-            return [$response];
             throw new \Wise\Exception\AuthorisationException($response->message, $code);
         }
 
