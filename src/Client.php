@@ -129,6 +129,13 @@ class Client
             throw new \Wise\Exception\AuthorisationException($response->message, $code);
         }
 
+        if ($code === 403) {
+            throw new \Wise\Exception\AccessException(
+                $response->errors[0]->message,
+                $code
+            );
+        }
+
         throw new \Exception($exception->getMessage(), $code);
     }
 
