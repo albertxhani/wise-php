@@ -16,17 +16,39 @@ class ServiceFactory
 
     private $instances = [];
 
+    /**
+     * Construct service
+     *
+     * @param Client $client Client Object
+     *
+     * @return void
+     */
     public function __construct($client)
     {
         $this->_client = $client;
     }
 
+    /**
+     * Fetch service object given the service name
+     *
+     * @param String $name Service name
+     *
+     * @return Service
+     */
     protected function getService($name)
     {
         return array_key_exists($name, self::$services) ?
             self::$services[$name] : false;
     }
 
+    /**
+     * Get servce by name from the pool of services. Initialize it
+     * if it has not been initialized before
+     *
+     * @param String $name Service name
+     *
+     * @return void
+     */
     public function __get($name)
     {
         $className = $this->getService($name);

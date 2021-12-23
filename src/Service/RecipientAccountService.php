@@ -4,7 +4,6 @@ namespace Wise\Service;
 
 class RecipientAccountService extends Service
 {
-
     /**
      * Create a recipient account
      *
@@ -37,7 +36,7 @@ class RecipientAccountService extends Service
      *
      * @return Response
      */
-    public function retreive($id)
+    public function retrieve($id)
     {
         return $this->client->request("GET", "v1/accounts/{$id}");
     }
@@ -53,5 +52,4 @@ class RecipientAccountService extends Service
     {
         return $this->client->request("DELETE", "v1/accounts/{$id}");
     }
-
 }
