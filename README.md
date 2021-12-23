@@ -19,9 +19,58 @@ $client = new \Wise\Client(
          "profile_id" => "WISE_PROFILE_ID"
     ]
 );
+
 ```
-### Creating a recepient account
-...
+### Creating a recipient account
+
+```php
+$client->recipient_accounts->create(
+    [
+        "accountHolderName" => "John Snow",
+        "currency" => "EUR",
+        "type" => "iban",
+            "details" => [
+                "legalType" => "PRIVATE",
+                "IBAN" => "GBFSDFS546S5DF46S5"
+        ]
+    ]
+);
+
+```
+
+### Validating Iban
+
+```php
+$client->validators->iban($iban);
+```
+
+### Creating Quote
+```php
+$client->quotes->create(
+    [
+        "sourceCurrency" => "EUR",
+        "targetCurrency" => "GBP",
+        "sourceAmount" => "100.00",
+        "targetAmount" => null
+    ]
+);
+```
+
+### Creating transfer
+```php
+$client->transfers->create(
+    [
+        "targetAccount" => "account id",
+        "quoteUuid" => "generated quote id",
+        "customerTransactionId" => "transaction id",
+        "details" => [
+            "reference" => "Company X",
+            "transferPurpose"=> "verification.transfers.purpose.pay.bills",
+            "sourceOfFunds"=> "verification.source.of.funds.other"
+        ]
+    ]
+);
+```
 
 
 
