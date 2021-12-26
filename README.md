@@ -9,6 +9,13 @@ You can also power your cross-border and domestic payouts. For more info have a 
 - PHP 5.6.0 and later.
 - cURL
 
+# Install
+
+To install the package use the composer command
+```
+composer require transferwise/wise-php
+```
+
 # Sample Code
 
 ### Initialing Client
