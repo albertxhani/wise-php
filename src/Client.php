@@ -1,6 +1,6 @@
 <?php
 
-namespace Wise;
+namespace TransferWise;
 
 class Client
 {
