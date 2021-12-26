@@ -41,7 +41,7 @@ class Client
     public function __get($name)
     {
         if ($this->_factory === null) {
-            $this->_factory = new \Wise\Factory\ServiceFactory($this);
+            $this->_factory = new \TransferWise\Factory\ServiceFactory($this);
         }
 
         return $this->_factory->__get($name);
@@ -110,27 +110,27 @@ class Client
         $response = json_decode($content);
 
         if (($code === 400 || $code === 404) && $content !== "") {
-            throw new \Wise\Exception\BadException($response->errors[0]->message, $code);
+            throw new \TransferWise\Exception\BadException($response->errors[0]->message, $code);
         }
 
         if ($code === 422) {
             if ($content !== "") {
-                throw \Wise\Exception\ValidationException::instance(
+                throw \TransferWise\Exception\ValidationException::instance(
                     "Validation error",
                     $response->errors,
                     $code
                 );
             } else {
-                throw new \Wise\Exception\ValidationException($response->message, $code);
+                throw new \TransferWise\Exception\ValidationException($response->message, $code);
             }
         }
 
         if ($code === 401 && $content !== "") {
-            throw new \Wise\Exception\AuthorisationException($response->message, $code);
+            throw new \TransferWise\Exception\AuthorisationException($response->message, $code);
         }
 
         if ($code === 403) {
-            throw new \Wise\Exception\AccessException(
+            throw new \TransferWise\Exception\AccessException(
                 $response->errors[0]->message,
                 $code
             );

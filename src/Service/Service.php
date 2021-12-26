@@ -1,6 +1,6 @@
 <?php
 
-namespace Wise\Service;
+namespace TransferWise\Service;
 
 class Service
 {
@@ -28,7 +28,7 @@ class Service
         $profile_id = $this->client->getProfileId();
 
         if (!$profile_id) {
-            throw new \Wise\Exception\InvalidArgumentException("missing profile id");
+            throw new \TransferWise\Exception\InvalidArgumentException("missing profile id");
         }
 
         if (!array_key_exists("profile", $params)) {

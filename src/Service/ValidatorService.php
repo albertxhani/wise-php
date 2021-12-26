@@ -1,6 +1,6 @@
 <?php
 
-namespace Wise\Service;
+namespace TransferWise\Service;
 
 class ValidatorService extends Service
 {

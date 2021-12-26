@@ -1,6 +1,6 @@
 <?php
 
-namespace Wise\Exception;
+namespace TransferWise\Exception;
 
 class ApiErrorException extends \Exception
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace Wise\Factory;
+namespace TransferWise\Factory;
 
 class ServiceFactory
 {
 
     private static $services = [
-        'profiles' => \Wise\Service\ProfileService::class,
-        'quotes' => \Wise\Service\QuoteService::class,
-        "recipient_accounts" => \Wise\Service\RecipientAccountService::class,
-        "transfers" => \Wise\Service\TransferService::class,
-        "validators" => \Wise\Service\ValidatorService::class,
-        "banks" => \Wise\Service\BankService::class,
+        'profiles' => \TransferWise\Service\ProfileService::class,
+        'quotes' => \TransferWise\Service\QuoteService::class,
+        "recipient_accounts" => \TransferWise\Service\RecipientAccountService::class,
+        "transfers" => \TransferWise\Service\TransferService::class,
+        "validators" => \TransferWise\Service\ValidatorService::class,
+        "banks" => \TransferWise\Service\BankService::class,
     ];
 
     private $instances = [];
