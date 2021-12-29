@@ -80,7 +80,11 @@ class Client
             ]
         ];
 
-        if ((in_array($method, ["POST", "PUT"]))  && count($params) > 0) {
+        if ($method == "PATCH") {
+            $data["headers"]["Content-Type"] = "application/merge-patch+json";
+        }
+
+        if ((in_array($method, ["POST", "PUT", "PATCH"]))  && count($params) > 0) {
             $data["json"] = $params;
         }
 

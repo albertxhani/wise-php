@@ -18,6 +18,19 @@ class QuoteService extends Service
     }
 
     /**
+     * Update Quote
+     *
+     * @param Int   $id     Quote Id
+     * @param Array $params parameters needed to update a quote
+     *
+     * @return Response
+     */
+    public function update($id, $params)
+    {
+        return $this->client->request("PATCH", "v2/quotes/{$id}", $params);
+    }
+
+    /**
      * Retrieve quote by id
      *
      * @param Int $id Quote Id
