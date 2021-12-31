@@ -18,6 +18,18 @@ class QuoteService extends Service
     }
 
     /**
+     * Create temporary quote
+     *
+     * @param Array $params parameters needed to create a temporary quote
+     *
+     * @return Response
+     */
+    public function temporary($params)
+    {
+        return $this->client->request("POST", "v2/quotes", $params);
+    }
+
+    /**
      * Update Quote
      *
      * @param Int   $id     Quote Id
