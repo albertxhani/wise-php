@@ -25,6 +25,7 @@ class Client
         if (is_array($config)) {
             $this->_token = $config["token"];
             $this->_profile_id = $config["profile_id"];
+            if($config["env"] == "sandbox") $this->_url = "https://api.sandbox.transferwise.tech/";
             return;
         }
 

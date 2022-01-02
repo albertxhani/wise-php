@@ -23,7 +23,8 @@ composer require transferwise/wise-php
 $client = new \TransferWise\Client(
     [
          "token" => "WISE_TOKEN",
-         "profile_id" => "WISE_PROFILE_ID"
+         "profile_id" => "WISE_PROFILE_ID",
+         "env" => "sandbox" // optional
     ]
 );
 
