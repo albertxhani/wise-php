@@ -62,4 +62,34 @@ class ProfileService extends Service
         return $this->client->request("GET", "v1/{$id}/directors");
     }
 
+    /**
+     * Get List of directors for a specific profile
+     *
+     * @param Int   $id     Profile Id
+     * @param Array $params Parameters needed to create a profile
+     *
+     * @return Response
+     */
+    public function addDirector($id, $params)
+    {
+        return $this->client->request("POST", "v1/{$id}/directors", $params);
+    }
+
+    /**
+     * Add identification document details to user profilz
+     *
+     * @param Int   $id     Profile Id
+     * @param Array $params Parameters needed to create identification document
+     *
+     * @return Response
+     */
+    public function addIdentificationDocument($id, $params)
+    {
+        return $this->client->request(
+            "POST",
+            "v1/profiles/{$id}/verification-documents",
+            $params
+        );
+    }
+
 }
