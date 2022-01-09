@@ -4,6 +4,7 @@ namespace TransferWise\Factory;
 
 class ServiceFactory
 {
+    private $_client;
 
     private static $services = [
         'profiles' => \TransferWise\Service\ProfileService::class,
@@ -12,6 +13,7 @@ class ServiceFactory
         "transfers" => \TransferWise\Service\TransferService::class,
         "validators" => \TransferWise\Service\ValidatorService::class,
         "banks" => \TransferWise\Service\BankService::class,
+        "profileWebhooks" => \TransferWise\Service\ProfileWebhookService::class
     ];
 
     private $instances = [];

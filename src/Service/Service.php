@@ -61,4 +61,26 @@ class Service
         return substr_replace($path, "", -1);
     }
 
+    /**
+     * Search for profile id if the given one is false
+     * throw exception if non is found
+     *
+     * @param Int $profile_id Given profile id
+     *
+     * @throws \TransferWise\Exception\InvalidArgumentException
+     * @return Int Profile Id
+     */
+    protected function mustHaveProfileId($profile_id = false)
+    {
+        if (!$profile_id) {
+            $profile_id = $this->client->getProfileId();
+        }
+
+        if (!$profile_id) {
+            throw new \TransferWise\Exception\InvalidArgumentException("missing profile id");
+        }
+
+        return $profile_id;
+    }
+
 }
