@@ -23,9 +23,20 @@ class Client
     public function __construct($config)
     {
         if (is_array($config)) {
+
+            if (!isset($config["token"])) {
+                throw new Exception\InvalidArgumentException("missing token");
+            }
             $this->_token = $config["token"];
-            $this->_profile_id = $config["profile_id"];
-            if($config["env"] == "sandbox") $this->_url = "https://api.sandbox.transferwise.tech/";
+
+            if (isset($config["profile_id"])) {
+                $this->_profile_id = $config["profile_id"];
+            }
+
+            if (isset($config["env"]) && $config["env"] == "sandbox") {
+                $this->_url = "https://api.sandbox.transferwise.tech/";
+            }
+
             return;
         }
 
