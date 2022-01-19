@@ -11,7 +11,7 @@ try {
      */
     $account = $client->recipient_accounts->retrieve($test_id);
 
-    echo "<ore>";
+    echo "<pre>";
     print_r($account);
 
     /**
