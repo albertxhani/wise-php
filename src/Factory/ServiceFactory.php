@@ -7,6 +7,7 @@ class ServiceFactory
     private $_client;
 
     private static $services = [
+        'addresses' => \TransferWise\Service\AddressService::class,
         'profiles' => \TransferWise\Service\ProfileService::class,
         'quotes' => \TransferWise\Service\QuoteService::class,
         "recipient_accounts" => \TransferWise\Service\RecipientAccountService::class,
