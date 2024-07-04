@@ -112,7 +112,12 @@ class TransferService extends Service
             "limit" => isset($params["limit"]) ? $params["limit"] : 100,
             "profile" => $this->client->getProfileId()
         ];
-
+        if (isset($params["createdDateStart"])){
+            $defaults["createdDateStart"] = $params["createdDateStart"];
+        }
+        if (isset($params["createdDateEnd"])){
+            $defaults["createdDateEnd"] = $params["createdDateEnd"];
+        }
         $path = $this->withQuery("v1/transfers", $defaults);
         return $this->client->request("GET", $path);
     }
