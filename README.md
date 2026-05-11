@@ -1,20 +1,36 @@
-# Wise php
+# Wise PHP
 
-This library is written to accomodate the wise API's use in php projects
-With Wise you can automate payments, connect your business tools, and create ways to manage your finances.
-You can also power your cross-border and domestic payouts. For more info have a look at https://wise.com/ and https://api-docs.wise.com/
+This library is written to accommodate the Wise API in PHP projects.
+With Wise you can automate payments, connect business tools, and manage finances.
+You can also power cross-border and domestic payouts.
+For more information, see https://wise.com/ and https://api-docs.wise.com/
 
 ## Requirements
 
-- PHP 5.6.0 and later.
+- PHP 8.4 or later.
+- guzzlehttp/guzzle ^7.0
 - cURL
 
 ## Install
 
-To install the package use the composer command
+To install the package, run:
 ```
 composer require transferwise/wise-php
 ```
+
+## Development and tests
+
+Install dependencies:
+```bash
+composer install
+```
+
+Run the test suite:
+```bash
+vendor/bin/phpunit
+```
+
+CI runs this suite against PHP 8.4 and 8.5 on each push and pull request.
 
 ## Sample Code
 
@@ -148,7 +164,3 @@ $client->profiles->directors();
 $client->profiles->addDirector();
 $client->profiles->addIdentificationDocument();
 ```
-
-##### The documentation is a work in progress and will be updated with more details of to use each resource together with a guideline and examples
-
-

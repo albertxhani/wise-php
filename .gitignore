@@ -1,0 +1,33 @@
+# Composer
+/vendor/
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+
+# Coverage & reports
+/coverage/
+clover.xml
+coverage.xml
+*.cov
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# IDE & editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & temp
+*.log
+*.tmp
+*.temp

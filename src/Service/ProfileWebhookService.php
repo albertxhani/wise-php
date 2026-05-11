@@ -63,7 +63,7 @@ class ProfileWebhookService extends Service
     {
         $profile_id = $this->mustHaveProfileId($profile_id);
 
-        return $this->client->require(
+        return $this->client->request(
             "GET",
             "v3/profiles/{$profile_id}/subscriptions/{$id}"
         );
@@ -80,7 +80,7 @@ class ProfileWebhookService extends Service
     {
         $profile_id = $this->mustHaveProfileId($profile_id);
 
-        return $this->client->require(
+        return $this->client->request(
             "GET",
             "v3/profiles/{$profile_id}/subscriptions"
         );

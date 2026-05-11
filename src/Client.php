@@ -72,13 +72,14 @@ class Client
     /**
      * Request Call
      *
-     * @param String $method GET|POST
+     * @param String $method GET|POST|PATCH
      * @param String $path   Api route
      * @param Array  $params request params
+     * @param Array  $headers additional request headers
      *
      * @return Json
      */
-    public function request($method, $path, $params = [])
+    public function request($method, $path, $params = [], $headers = [])
     {
 
         if (!$this->_http_client) {
@@ -86,15 +87,11 @@ class Client
         }
 
         $data = [
-            'headers' => [
+            'headers' => array_merge([
                 'Authorization' => "Bearer $this->_token",
-                'Content-Type' => "application/json"
-            ]
+                'Content-Type' => "application/json",
+            ], $headers)
         ];
-
-        if ($method == "PATCH") {
-            $data["headers"]["Content-Type"] = "application/merge-patch+json";
-        }
 
         if ((in_array($method, ["POST", "PUT", "PATCH"]))  && count($params) > 0) {
             $data["json"] = $params;
@@ -126,30 +123,51 @@ class Client
         $response = json_decode($content);
 
         if (($code === 400 || $code === 404) && $content !== "") {
-            throw new \TransferWise\Exception\BadException($response->errors[0]->message, $code);
+            $message = isset($response->errors[0]->message) ? $response->errors[0]->message : $response->message ?? 'Unknown error';
+            throw new \TransferWise\Exception\BadException($message, $code);
         }
 
         if ($code === 422) {
             if ($content !== "") {
+                $errors = isset($response->errors) ? $response->errors : [];
                 throw \TransferWise\Exception\ValidationException::instance(
                     "Validation error",
-                    $response->errors,
+                    $errors,
                     $code
                 );
             } else {
-                throw new \TransferWise\Exception\ValidationException($response->message, $code);
+                $message = isset($response->message) ? $response->message : 'Validation error';
+                throw new \TransferWise\Exception\ValidationException($message, $code);
             }
         }
 
         if ($code === 401 && $content !== "") {
-            throw new \TransferWise\Exception\AuthorisationException($response->message, $code);
+            $message = isset($response->message) ? $response->message : 'Authorization error';
+            throw new \TransferWise\Exception\AuthorisationException($message, $code);
         }
 
         if ($code === 403) {
-            throw new \TransferWise\Exception\AccessException(
-                $response->errors[0]->message,
-                $code
-            );
+            $headers = $exception->getResponse()->getHeaders();
+            $approvalResult = isset($headers['x-2fa-approval-result']) ? $headers['x-2fa-approval-result'][0] : null;
+            $approvalToken = isset($headers['x-2fa-approval']) ? $headers['x-2fa-approval'][0] : null;
+            
+            // Check for Strong Customer Authentication (SCA) related 403 errors
+            if ($approvalResult === 'REJECTED') {
+                $message = 'Access denied: Strong Customer Authentication required. ';
+                if ($approvalToken) {
+                    $message .= 'Use the One Time Token (OTT) to complete the authentication challenge: ' . $approvalToken;
+                } else {
+                    $message .= 'Additional verification is required.';
+                }
+                throw new \TransferWise\Exception\AccessException($message, $code);
+            } elseif ($approvalResult === 'APPROVED') {
+                $message = 'Access denied: The authentication was approved but access is still restricted. Please retry your request.';
+                throw new \TransferWise\Exception\AccessException($message, $code);
+            }
+            
+            // Fallback to original error message if SCA headers are not present
+            $message = isset($response->errors[0]->message) ? $response->errors[0]->message : $response->message ?? 'Access denied';
+            throw new \TransferWise\Exception\AccessException($message, $code);
         }
 
         throw new \Exception($exception->getMessage(), $code);
